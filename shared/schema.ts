@@ -132,6 +132,8 @@ export const diyProjects = pgTable("diy_projects", {
   description: text("description").notNull(),
   image: text("image").notNull(),
   duration: text("duration").notNull(),
+  difficulty: text("difficulty").default("Medium"),
+  toolsRequired: text("tools_required").array(),
   type: text("type").notNull(), // step guide, project
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

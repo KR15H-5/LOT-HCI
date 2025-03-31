@@ -131,7 +131,7 @@ export default function ItemDetailsPage() {
                 navigate("/");
               }}
             >
-              <ArrowLeft className="h-5 w-5" />
+              <ArrowLeft className="h-5 w-5 text-black" />
             </button>
             <button 
               className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md"
@@ -143,7 +143,7 @@ export default function ItemDetailsPage() {
               {isSaved ? (
                 <BookmarkCheck className="h-5 w-5 text-primary fill-primary" />
               ) : (
-                <Bookmark className="h-5 w-5" />
+                <Bookmark className="h-5 w-5 text-black" />
               )}
             </button>
           </div>

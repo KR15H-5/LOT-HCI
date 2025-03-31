@@ -242,6 +242,8 @@ export class MemStorage implements IStorage {
       description: "Learn how to build a beautiful wooden shoppiece for your home",
       image: "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
       duration: "30 min step guide",
+      difficulty: "Medium",
+      toolsRequired: ["Hammer", "Saw", "Screwdriver", "Drill"],
       type: "step guide"
     };
     
@@ -250,6 +252,8 @@ export class MemStorage implements IStorage {
       description: "Create your own garden raised bed",
       image: "https://images.unsplash.com/photo-1598902108854-10e335adac99?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
       duration: "1 hr project",
+      difficulty: "Easy",
+      toolsRequired: ["Garden Shovel", "Drill", "Measuring Tape"],
       type: "project"
     };
     
@@ -258,12 +262,48 @@ export class MemStorage implements IStorage {
       description: "Fun family project to create a wooden game",
       image: "https://images.unsplash.com/photo-1547050605-2f268cd5dbbf?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
       duration: "1 hr project",
+      difficulty: "Easy",
+      toolsRequired: ["Saw", "Sandpaper", "Paint Brush"],
+      type: "project"
+    };
+    
+    // Add more DIY projects
+    const diyProject4: InsertDiyProject = {
+      title: "Build a herb planter",
+      description: "Create a beautiful indoor herb planter for your kitchen",
+      image: "https://images.unsplash.com/photo-1595352865347-3a2b90224bee?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+      duration: "45 min project",
+      difficulty: "Easy",
+      toolsRequired: ["Drill", "Hand Saw", "Hammer"],
+      type: "project"
+    };
+    
+    const diyProject5: InsertDiyProject = {
+      title: "Custom kitchen shelf",
+      description: "Build a floating kitchen shelf for spices and utensils",
+      image: "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+      duration: "2 hr project",
+      difficulty: "Medium",
+      toolsRequired: ["Hammer Drill", "Level", "Screwdriver", "Tape Measure"],
+      type: "project"
+    };
+    
+    const diyProject6: InsertDiyProject = {
+      title: "Backyard fire pit",
+      description: "Build a durable and safe fire pit for your backyard",
+      image: "https://images.unsplash.com/photo-1525890374104-c89fe65af084?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+      duration: "3 hr project",
+      difficulty: "Hard",
+      toolsRequired: ["Shovel", "Rake", "Wheelbarrow", "Level", "Tape Measure"],
       type: "project"
     };
     
     this.addDiyProject(diyProject1);
     this.addDiyProject(diyProject2);
     this.addDiyProject(diyProject3);
+    this.addDiyProject(diyProject4);
+    this.addDiyProject(diyProject5);
+    this.addDiyProject(diyProject6);
     
     // Create sample testimonials
     const testimonial1: InsertTestimonial = {

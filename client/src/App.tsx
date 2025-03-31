@@ -16,6 +16,8 @@ import ChatPage from "@/pages/ChatPage";
 import CheckoutPage from "@/pages/CheckoutPage";
 import TermsPage from "@/pages/TermsPage";
 import LoginPage from "@/pages/LoginPage";
+import DiyProjectsPage from "@/pages/DiyProjectsPage";
+import DiyProjectDetailsPage from "@/pages/DiyProjectDetailsPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -33,6 +35,8 @@ function Router() {
       <Route path="/checkout" component={CheckoutPage} />
       <Route path="/terms" component={TermsPage} />
       <Route path="/login" component={LoginPage} />
+      <Route path="/diy-projects" component={DiyProjectsPage} />
+      <Route path="/diy-projects/:id" component={DiyProjectDetailsPage} />
       <Route component={NotFound} />
     </Switch>
   );

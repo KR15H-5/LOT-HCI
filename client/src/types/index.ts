@@ -83,6 +83,8 @@ export interface DiyProject {
   description: string;
   image: string;
   duration: string;
+  difficulty: string;
+  toolsRequired: string[];
   type: string;
   createdAt: Date | string;
 }
