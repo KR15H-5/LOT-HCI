@@ -8,19 +8,43 @@ async function throwIfResNotOk(res: Response) {
 }
 
 export async function apiRequest(
-  method: string,
-  url: string,
+  methodOrUrl: string,
+  urlOrData?: string | unknown,
   data?: unknown | undefined,
 ): Promise<Response> {
-  const res = await fetch(url, {
-    method,
-    headers: data ? { "Content-Type": "application/json" } : {},
-    body: data ? JSON.stringify(data) : undefined,
-    credentials: "include",
-  });
+  // Handle overloading: if first param is a URL (no method)
+  let method = 'GET';
+  let url = methodOrUrl;
+  
+  // If methodOrUrl is a HTTP method and urlOrData is a string (URL)
+  if (urlOrData && typeof urlOrData === 'string') {
+    method = methodOrUrl;
+    url = urlOrData;
+  } else if (urlOrData && typeof urlOrData !== 'string') {
+    // If methodOrUrl is a URL and urlOrData is data
+    data = urlOrData;
+  }
+  
+  try {
+    const res = await fetch(url, {
+      method,
+      headers: data ? { "Content-Type": "application/json" } : {},
+      body: data ? JSON.stringify(data) : undefined,
+      credentials: "include",
+    });
 
-  await throwIfResNotOk(res);
-  return res;
+    await throwIfResNotOk(res);
+    
+    // For GET requests, parse and return the JSON data directly
+    if (method === 'GET') {
+      return await res.json();
+    }
+    
+    return res;
+  } catch (error) {
+    console.error("API request error:", error);
+    throw error;
+  }
 }
 
 type UnauthorizedBehavior = "returnNull" | "throw";

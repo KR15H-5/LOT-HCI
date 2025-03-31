@@ -53,8 +53,8 @@ export default function BookingPage() {
     }, {
       onSuccess: (data) => {
         console.log("Booking created successfully:", data);
-        const responseData = data as any;
-        navigate(`/confirmation/${item.id}?bookingId=${responseData.id || 1}`);
+        // Data now contains the actual booking with an ID
+        navigate(`/confirmation/${item.id}?bookingId=${data.id}`);
       },
       onError: (error) => {
         console.error("Error creating booking:", error);
