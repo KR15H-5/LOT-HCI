@@ -402,7 +402,16 @@ export class MemStorage implements IStorage {
   async createUser(user: InsertUser): Promise<User> {
     const id = this.userCurrentId++;
     const createdAt = new Date();
-    const newUser: User = { id, ...user, createdAt };
+    // Ensure all optional fields are explicitly set to null if undefined
+    const newUser: User = { 
+      id, 
+      createdAt,
+      username: user.username,
+      password: user.password,
+      fullName: user.fullName,
+      occupation: user.occupation ?? null,
+      profileImage: user.profileImage ?? null
+    };
     this.users.set(id, newUser);
     return newUser;
   }
@@ -425,7 +434,29 @@ export class MemStorage implements IStorage {
   async createItem(item: InsertItem): Promise<Item> {
     const id = this.itemCurrentId++;
     const createdAt = new Date();
-    const newItem: Item = { id, ...item, createdAt };
+    // Ensure all required fields are defined properly
+    const newItem: Item = { 
+      id,
+      createdAt,
+      name: item.name,
+      description: item.description,
+      category: item.category,
+      image: item.image,
+      ownerId: item.ownerId,
+      pricePerDay: item.pricePerDay,
+      rating: item.rating ?? null,
+      specifications: item.specifications ?? null,
+      additionalImages: item.additionalImages ?? null,
+      pricePerWeek: item.pricePerWeek ?? null,
+      suitableTasks: item.suitableTasks ?? null,
+      suitability: item.suitability ?? null,
+      expertSupportRequired: item.expertSupportRequired ?? null,
+      maxHireDuration: item.maxHireDuration ?? null,
+      maxHireQuantity: item.maxHireQuantity ?? null,
+      hireDurationUnit: item.hireDurationUnit ?? null,
+      isAvailable: item.isAvailable ?? true,
+      available: item.available ?? null
+    };
     this.items.set(id, newItem);
     return newItem;
   }
@@ -463,7 +494,18 @@ export class MemStorage implements IStorage {
   async createBooking(booking: InsertBooking): Promise<Booking> {
     const id = this.bookingCurrentId++;
     const createdAt = new Date();
-    const newBooking: Booking = { id, ...booking, createdAt };
+    // Ensure all fields meet the type requirements
+    const newBooking: Booking = { 
+      id, 
+      createdAt,
+      itemId: booking.itemId,
+      userId: booking.userId,
+      startDate: booking.startDate,
+      endDate: booking.endDate,
+      status: booking.status,
+      totalPrice: booking.totalPrice,
+      location: booking.location ?? null
+    };
     this.bookings.set(id, newBooking);
     return newBooking;
   }
@@ -597,7 +639,17 @@ export class MemStorage implements IStorage {
   private async addDiyProject(project: InsertDiyProject): Promise<DiyProject> {
     const id = this.diyProjectCurrentId++;
     const createdAt = new Date();
-    const newProject: DiyProject = { id, ...project, createdAt };
+    const newProject: DiyProject = { 
+      id,
+      createdAt,
+      title: project.title,
+      image: project.image,
+      type: project.type,
+      description: project.description,
+      duration: project.duration,
+      difficulty: project.difficulty ?? null,
+      toolsRequired: project.toolsRequired ?? null
+    };
     this.diyProjects.set(id, newProject);
     return newProject;
   }

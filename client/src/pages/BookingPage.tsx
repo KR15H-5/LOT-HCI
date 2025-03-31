@@ -12,9 +12,11 @@ import { ReactNode } from "react";
 
 export default function BookingPage() {
   const [locationPath, navigate] = useLocation();
-  // Parse the query parameter
+  
+  // Get the item ID from URL parameters - ensure proper parsing
   const params = new URLSearchParams(window.location.search);
-  const itemId = params.get('itemId') ? parseInt(params.get('itemId')!) : null;
+  const itemIdParam = params.get('itemId');
+  const itemId = itemIdParam ? parseInt(itemIdParam, 10) : null;
   
   // Log for debugging
   console.log("BookingPage: itemId from query params:", itemId);
@@ -24,6 +26,14 @@ export default function BookingPage() {
     console.log("Current location:", locationPath);
     console.log("Item ID from query:", itemId);
   }, [locationPath, itemId]);
+
+  // Redirect if no item ID is provided
+  useEffect(() => {
+    if (itemId === null || isNaN(itemId)) {
+      console.error("Invalid or missing itemId in URL parameters");
+      navigate("/");
+    }
+  }, [itemId, navigate]);
 
   const { data: item, isLoading } = useItemById(itemId);
   const createBooking = useCreateBooking();
@@ -159,7 +169,7 @@ export default function BookingPage() {
             onClick={() => handleCreateBooking('day')}
             disabled={createBooking.isPending}
           >
-            ${item.pricePerDay}/day
+            {item.pricePerDay ? `$${item.pricePerDay}/day` : "Price unavailable"}
           </Button>
           {item.pricePerWeek && (
             <Button 
@@ -168,7 +178,7 @@ export default function BookingPage() {
               onClick={() => handleCreateBooking('week')}
               disabled={createBooking.isPending}
             >
-              ${item.pricePerWeek}/week
+              {item.pricePerWeek ? `$${item.pricePerWeek}/week` : "Price unavailable"}
             </Button>
           )}
         </div>
