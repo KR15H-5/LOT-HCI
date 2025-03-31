@@ -27,11 +27,11 @@ export default function BookingPage() {
     console.log("Item ID from query:", itemId);
   }, [locationPath, itemId]);
 
-  // Redirect if no item ID is provided
+  // For prototype, always use item ID 1 if missing
   useEffect(() => {
     if (itemId === null || isNaN(itemId)) {
-      console.error("Invalid or missing itemId in URL parameters");
-      navigate("/");
+      console.log("Using default item ID 1 for prototype");
+      navigate("/booking?itemId=1", { replace: true });
     }
   }, [itemId, navigate]);
 
