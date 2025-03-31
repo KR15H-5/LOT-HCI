@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
+import { apiRequest } from "@/lib/queryClient";
 import { Edit, LogOut, Settings } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import StatusBar from "@/components/layout/StatusBar";
@@ -10,14 +11,24 @@ import { ItemCard } from "@/components/ui/item-card";
 import { MOCK_USER_ID } from "@/lib/data";
 
 export default function ProfilePage() {
+  const [, navigate] = useLocation();
+  
   const { data: user, isLoading: isLoadingUser } = useQuery({
     queryKey: [`/api/users/${MOCK_USER_ID}`],
+    queryFn: async () => {
+      const response = await apiRequest(`/api/users/${MOCK_USER_ID}`);
+      return response as any;
+    }
   });
   
   const { data: bookings, isLoading: isLoadingBookings } = useUserBookings();
   
   const { data: certificates, isLoading: isLoadingCertificates } = useQuery({
     queryKey: [`/api/certificates/${MOCK_USER_ID}`],
+    queryFn: async () => {
+      const response = await apiRequest(`/api/certificates/${MOCK_USER_ID}`);
+      return response as any[];
+    }
   });
 
   // Group bookings by status
@@ -135,33 +146,27 @@ export default function ProfilePage() {
         {/* Settings */}
         <h2 className="font-semibold mb-3">Settings</h2>
         <div className="space-y-3">
-          <Link href="/profile/edit">
-            <a className="w-full flex items-center justify-between py-2 text-left">
-              <div className="flex items-center">
-                <Edit className="text-gray-400 h-5 w-5 mr-3" />
-                <span>Edit Profile</span>
-              </div>
-              <span className="text-gray-400">&gt;</span>
-            </a>
-          </Link>
-          <Link href="/logout">
-            <a className="w-full flex items-center justify-between py-2 text-left">
-              <div className="flex items-center">
-                <LogOut className="text-gray-400 h-5 w-5 mr-3" />
-                <span>Logout</span>
-              </div>
-              <span className="text-gray-400">&gt;</span>
-            </a>
-          </Link>
-          <Link href="/settings/accessibility">
-            <a className="w-full flex items-center justify-between py-2 text-left">
-              <div className="flex items-center">
-                <Settings className="text-gray-400 h-5 w-5 mr-3" />
-                <span>Accessible Layout</span>
-              </div>
-              <span className="text-gray-400">&gt;</span>
-            </a>
-          </Link>
+          <div className="w-full flex items-center justify-between py-2 text-left border-b border-gray-100 cursor-pointer" onClick={() => navigate("/profile/edit")}>
+            <div className="flex items-center">
+              <Edit className="text-black h-5 w-5 mr-3" />
+              <span>Edit Profile</span>
+            </div>
+            <span className="text-gray-700">&gt;</span>
+          </div>
+          <div className="w-full flex items-center justify-between py-2 text-left border-b border-gray-100 cursor-pointer" onClick={() => navigate("/login")}>
+            <div className="flex items-center">
+              <LogOut className="text-black h-5 w-5 mr-3" />
+              <span>Logout</span>
+            </div>
+            <span className="text-gray-700">&gt;</span>
+          </div>
+          <div className="w-full flex items-center justify-between py-2 text-left border-b border-gray-100 cursor-pointer" onClick={() => navigate("/settings/accessibility")}>
+            <div className="flex items-center">
+              <Settings className="text-black h-5 w-5 mr-3" />
+              <span>Accessible Layout</span>
+            </div>
+            <span className="text-gray-700">&gt;</span>
+          </div>
         </div>
       </div>
       

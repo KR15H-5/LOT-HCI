@@ -7,6 +7,10 @@ import { MOCK_USER_ID } from "@/lib/data";
 export function useUserBookings() {
   return useQuery<(Booking & { item?: any })[]>({
     queryKey: ["/api/bookings/user", MOCK_USER_ID],
+    queryFn: async () => {
+      const response = await apiRequest(`/api/bookings/user/${MOCK_USER_ID}`);
+      return response as (Booking & { item?: any })[];
+    }
   });
 }
 
@@ -19,12 +23,26 @@ export function useCreateBooking() {
       totalPrice: number;
       location?: string;
     }) => {
-      const response = await apiRequest("POST", "/api/bookings", {
+      const payload = {
         ...booking,
         userId: MOCK_USER_ID,
         status: "active"
-      });
-      return response.json();
+      };
+      
+      // Convert date objects to strings if needed
+      if (booking.startDate instanceof Date) {
+        payload.startDate = booking.startDate.toISOString().split('T')[0];
+      }
+      
+      if (booking.endDate instanceof Date) {
+        payload.endDate = booking.endDate.toISOString().split('T')[0];
+      }
+      
+      // For debugging
+      console.log("Creating booking with payload:", payload);
+      
+      const response = await apiRequest("POST", "/api/bookings", payload);
+      return response;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/bookings/user", MOCK_USER_ID] });

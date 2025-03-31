@@ -34,19 +34,31 @@ export default function BookingPage() {
     const startDateObj = startDate instanceof Date ? startDate : new Date(startDate);
     const endDateObj = endDate instanceof Date ? endDate : new Date(endDate);
     
+    // Calculate days between dates
+    const days = Math.max(1, Math.ceil((endDateObj.getTime() - startDateObj.getTime()) / (1000 * 60 * 60 * 24)));
+    
+    // Calculate total price based on option
     const totalPrice = priceOption === "day" 
-      ? item.pricePerDay * Math.ceil((endDateObj.getTime() - startDateObj.getTime()) / (1000 * 60 * 60 * 24))
-      : item.pricePerWeek || item.pricePerDay * 7;
+      ? item.pricePerDay * days
+      : item.pricePerWeek || (item.pricePerDay * 7);
+
+    console.log(`Creating booking for ${days} days at ${priceOption} rate`);
 
     createBooking.mutate({
       itemId: item.id,
-      startDate: startDateObj.toISOString().split('T')[0], // Converting to YYYY-MM-DD format
-      endDate: endDateObj.toISOString().split('T')[0], // Converting to YYYY-MM-DD format
+      startDate: startDateObj,
+      endDate: endDateObj,
       totalPrice,
       location
     }, {
       onSuccess: (data) => {
-        navigate(`/confirmation/${item.id}?bookingId=${data.id}`);
+        console.log("Booking created successfully:", data);
+        const responseData = data as any;
+        navigate(`/confirmation/${item.id}?bookingId=${responseData.id || 1}`);
+      },
+      onError: (error) => {
+        console.error("Error creating booking:", error);
+        alert("There was an error creating your booking. Please try again.");
       }
     });
   };
