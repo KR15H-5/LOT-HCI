@@ -11,19 +11,20 @@ import { ItemCard } from "@/components/ui/item-card";
 import { InspirationCard } from "@/components/ui/inspiration-card";
 import { useAllItems } from "@/hooks/useItems";
 import { CATEGORIES } from "@/lib/data";
-import { Wrench, Flower2, Utensils, Hammer } from "lucide-react";
+import { Wrench, Flower2, Utensils, Hammer } from "lucide-react"; 
+import { DiyProject } from "@/types";
 
-const CATEGORY_ICONS = {
-  Tool: Wrench, // Replace Tool with Wrench
-  Flower2,
-  Utensils,
-  Hammer
+const CATEGORY_ICONS: Record<string, React.ComponentType<any>> = {
+  "tool": Wrench, 
+  "flower2": Flower2,
+  "utensils": Utensils,
+  "hammer": Hammer
 };
 
 export default function HomePage() {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const { data: items, isLoading: isLoadingItems } = useAllItems();
-  const { data: diyProjects, isLoading: isLoadingProjects } = useQuery({
+  const { data: diyProjects = [], isLoading: isLoadingProjects } = useQuery<DiyProject[]>({
     queryKey: ["/api/diy-projects"],
   });
 
