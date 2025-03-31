@@ -70,7 +70,10 @@ export default function ItemDetailsPage() {
   };
   
   const handleRentNow = () => {
-    navigate(`/booking/${item.id}`);
+    // Navigate to the correct booking page URL
+    console.log("Rent Now button clicked for item:", item.id);
+    // This is the correct route for our booking page
+    navigate(`/booking?itemId=${item.id}`);
   };
 
   // Get all item images (use main image or fallback if no additional images)

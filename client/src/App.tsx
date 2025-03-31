@@ -27,7 +27,7 @@ function Router() {
       <Route path="/welcome" component={WelcomePage} />
       <Route path="/search" component={SearchPage} />
       <Route path="/items/:id" component={ItemDetailsPage} />
-      <Route path="/booking/:id" component={BookingPage} />
+      <Route path="/booking" component={BookingPage} />
       <Route path="/confirmation/:id" component={ConfirmationPage} />
       <Route path="/saved" component={SavedItemsPage} />
       <Route path="/profile" component={ProfilePage} />

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useParams, useLocation, Link } from "wouter";
+import { useState, useEffect } from "react";
+import { useLocation, Link } from "wouter";
 import { ArrowLeft, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import StatusBar from "@/components/layout/StatusBar";
@@ -10,16 +10,26 @@ import { useCreateBooking } from "@/hooks/useBookings";
 import { formatDate, getDateXDaysFromNow } from "@/lib/data";
 
 export default function BookingPage() {
-  const params = useParams<{ id: string }>();
-  const [_, navigate] = useLocation();
-  const itemId = params?.id ? parseInt(params.id) : null;
+  const [locationPath, navigate] = useLocation();
+  // Parse the query parameter
+  const params = new URLSearchParams(window.location.search);
+  const itemId = params.get('itemId') ? parseInt(params.get('itemId')!) : null;
+  
+  // Log for debugging
+  console.log("BookingPage: itemId from query params:", itemId);
+  
+  useEffect(() => {
+    // For debugging only
+    console.log("Current location:", locationPath);
+    console.log("Item ID from query:", itemId);
+  }, [locationPath, itemId]);
 
   const { data: item, isLoading } = useItemById(itemId);
   const createBooking = useCreateBooking();
 
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(getDateXDaysFromNow(1));
-  const [location, setLocation] = useState<string>("Lenton");
+  const [pickupLocation, setPickupLocation] = useState<string>("Lenton");
 
   if (isLoading || !item) {
     return (
@@ -49,7 +59,7 @@ export default function BookingPage() {
       startDate: startDateObj,
       endDate: endDateObj,
       totalPrice,
-      location
+      location: pickupLocation
     }, {
       onSuccess: (data) => {
         console.log("Booking created successfully:", data);
@@ -123,7 +133,7 @@ export default function BookingPage() {
         {/* Location */}
         <div className="mb-6">
           <h2 className="font-semibold mb-2">Location</h2>
-          <p className="text-gray-600">{location}</p>
+          <p className="text-gray-600">{pickupLocation}</p>
         </div>
 
         {/* Owner Information */}
