@@ -1,0 +1,67 @@
+A Library of Things is an initiative that helps a community member to rent
+useful household items from their local high street and learn DIY & repair
+skills to complete projects by themselves. E.g.
+https://www.libraryofthings.co.uk
+You have been commissioned to design a mobile app for a Library of Things
+initiative offering daily use items for hire. The company that leads this
+initiative has a range of different instruments which are hired out on a daily
+basis – some requiring training before hire and some also requiring expert
+support. The app you design needs to provide information on types of
+instruments that are available for hire, the activity the instrument can be
+used for, and a booking system for customers to hire the instrument.
+Specifically, the app should include:
+• The types of objects that can be hired: 
+o Including details about each instrument such as name,
+specifications (e.g., weight, dimensions, age of instrument,
+etc.), tasks they can be used for, etc.
+• The maximum number of days allowed for a device hire (because
+different devices have different characteristics and demand);
+• The maximum number of devices a person can hire at one time;
+• How suitable the instrument is for:
+o Different activities (e.g., vacuum cleaner for carpet vs.
+hardwood floor)
+o Different people such as children, elderly, people with
+disability, etc.;
+• The activity the customer would engage in with the device:
+o E.g., lawn-mowing, cooking, electrical / plumbing repairs, etc.
+• Care and maintenance instructions for the instruments;
+• Details of training required for customers before the instrument can
+be hired / used;
+o E.g., this device needs evidence of 2-day training completion
+before hiring
+• Details of expert support required for certain instruments before they
+can be hired / used;
+o E.g., this device will be operated by the in-house expert only,
+OR device will require in-house expert support while using it
+for particular activity, etc.
+• Safety considerations that the customer would need to know;
+• Any other information or facilities you feel the app should have;
+• A testimonial section containing recommendations from previous
+customers;
+As part of this work, you are required to produce the following:
+• A visual mock-up / prototype;
+• A design rationale:
+o Describing and justifying why you have designed the interface
+the way you have.
+o A discussion of the rationale for your design choices – upon
+what evidence are you basing the decisions about information
+layout and display, e.g., references for your design choices
+from lecture slides and literature.
+Assessment Criteria Marking Criteria:
+• Design of prototype (25 marks)
+o Is it clear? Is it well designed?
+o Is it interactive?
+• Explanations of key design decisions (25 marks)
+o Verbal description of your design decisions, e.g., Decisions
+made as to where to include content/screen elements in the
+app and why.
+• Justification of design with respect to design guidelines (25 marks)
+o How does your app conform to design principles such as
+Gestalt principles, frequency of use principles, heuristics
+such as guessability, etc.
+o Are there any exceptions to following design principles and, if
+so, what and why?
+• Citation of evidence (25 marks)
+o Where can the marker find more information about the points
+you make in the video, i.e., references, web sites, etc.? (list
+these somewhere in your
