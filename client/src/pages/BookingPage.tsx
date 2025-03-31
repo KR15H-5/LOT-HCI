@@ -30,19 +30,23 @@ export default function BookingPage() {
   }
 
   const handleCreateBooking = (priceOption: "day" | "week") => {
+    // Convert to Date objects for calculation if they aren't already
+    const startDateObj = startDate instanceof Date ? startDate : new Date(startDate);
+    const endDateObj = endDate instanceof Date ? endDate : new Date(endDate);
+    
     const totalPrice = priceOption === "day" 
-      ? item.pricePerDay * Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))
+      ? item.pricePerDay * Math.ceil((endDateObj.getTime() - startDateObj.getTime()) / (1000 * 60 * 60 * 24))
       : item.pricePerWeek || item.pricePerDay * 7;
 
     createBooking.mutate({
       itemId: item.id,
-      startDate,
-      endDate,
+      startDate: startDateObj.toISOString().split('T')[0], // Converting to YYYY-MM-DD format
+      endDate: endDateObj.toISOString().split('T')[0], // Converting to YYYY-MM-DD format
       totalPrice,
       location
     }, {
-      onSuccess: () => {
-        navigate(`/confirmation/${item.id}`);
+      onSuccess: (data) => {
+        navigate(`/confirmation/${item.id}?bookingId=${data.id}`);
       }
     });
   };

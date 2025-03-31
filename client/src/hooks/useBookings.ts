@@ -14,8 +14,8 @@ export function useCreateBooking() {
   return useMutation({
     mutationFn: async (booking: {
       itemId: number;
-      startDate: Date;
-      endDate: Date;
+      startDate: Date | string;
+      endDate: Date | string;
       totalPrice: number;
       location?: string;
     }) => {
