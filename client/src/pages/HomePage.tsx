@@ -29,7 +29,7 @@ export default function HomePage() {
   const { data: diyProjects = [], isLoading: isLoadingProjects } = useQuery<DiyProject[]>({
     queryKey: ["/api/diy-projects"],
   });
-  
+
   const { data: savedItems = [] } = useSavedItems();
   const saveItem = useSaveItem();
   const removeItem = useRemoveSavedItem();
@@ -73,7 +73,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen pb-20 bg-background">
       <StatusBar />
-      
+
       {/* Hero Banner */}
       <div className="relative h-[280px] bg-primary text-white mb-8">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-blue-700"></div>
@@ -134,7 +134,7 @@ export default function HomePage() {
               </div>
             </Link>
           </div>
-          
+
           {isLoadingItems ? (
             <div className="space-y-4">
               <div className="bg-gray-100 rounded-xl h-52 animate-pulse"></div>
@@ -164,7 +164,7 @@ export default function HomePage() {
                           <span className="text-xs font-bold">{item.rating}</span>
                         </div>
                       )}
-                      
+
                       {/* Save Button */}
                       <button 
                         className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md"
@@ -216,7 +216,7 @@ export default function HomePage() {
               </div>
             </Link>
           </div>
-          
+
           {isLoadingItems ? (
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-gray-100 rounded-xl h-52 animate-pulse"></div>
@@ -241,7 +241,7 @@ export default function HomePage() {
                         {item.category}
                       </span>
                     </div>
-                    
+
                     {/* Save Button */}
                     <div className="absolute top-2 right-2">
                       <button 
@@ -292,7 +292,7 @@ export default function HomePage() {
               </div>
             </Link>
           </div>
-          
+
           {isLoadingProjects ? (
             <div className="grid grid-cols-3 gap-4">
               <div className="bg-gray-100 rounded-xl h-40 animate-pulse"></div>
@@ -311,7 +311,7 @@ export default function HomePage() {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                      
+
                       {/* Difficulty Badge */}
                       <div className="absolute top-2 right-2">
                         <span className={`
@@ -323,7 +323,7 @@ export default function HomePage() {
                           {project.difficulty || 'Medium'}
                         </span>
                       </div>
-                      
+
                       <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
                         <h3 className="text-xs font-semibold line-clamp-1">{project.title}</h3>
                         <div className="flex justify-between items-center mt-0.5">
@@ -344,7 +344,7 @@ export default function HomePage() {
           )}
         </div>
       </div>
-      
+
       <BottomNavigation />
       <HomeIndicator />
     </div>

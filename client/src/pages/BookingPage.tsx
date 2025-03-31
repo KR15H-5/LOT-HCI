@@ -92,7 +92,7 @@ export default function BookingPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center">
-            <button className="p-1 mr-2" onClick={() => navigate(`/items/${item.id}`)}>
+            <button className="p-1 mr-2" onClick={() => navigate("/")}>
               <ArrowLeft className="h-6 w-6" />
             </button>
             <h1 className="text-xl font-bold">Confirm Booking</h1>
