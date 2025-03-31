@@ -8,6 +8,7 @@ import { DatePicker } from "@/components/ui/date-picker";
 import { useItemById } from "@/hooks/useItems";
 import { useCreateBooking } from "@/hooks/useBookings";
 import { formatDate, getDateXDaysFromNow } from "@/lib/data";
+import { ReactNode } from "react";
 
 export default function BookingPage() {
   const [locationPath, navigate] = useLocation();

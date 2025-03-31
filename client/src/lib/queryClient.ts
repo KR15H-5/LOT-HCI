@@ -11,7 +11,7 @@ export async function apiRequest(
   methodOrUrl: string,
   urlOrData?: string | unknown,
   data?: unknown | undefined,
-): Promise<Response> {
+): Promise<any> {
   // Handle overloading: if first param is a URL (no method)
   let method = 'GET';
   let url = methodOrUrl;
@@ -35,12 +35,9 @@ export async function apiRequest(
 
     await throwIfResNotOk(res);
     
-    // For GET requests, parse and return the JSON data directly
-    if (method === 'GET') {
-      return await res.json();
-    }
-    
-    return res;
+    // For all successful requests, parse and return the JSON data directly
+    // This resolves the issue of returning raw Response objects
+    return await res.json();
   } catch (error) {
     console.error("API request error:", error);
     throw error;

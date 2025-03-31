@@ -9,8 +9,9 @@ export function useUserBookings() {
     queryKey: ["/api/bookings/user", MOCK_USER_ID],
     queryFn: async () => {
       try {
+        // apiRequest now already returns the parsed JSON
         const data = await apiRequest(`/api/bookings/user/${MOCK_USER_ID}`);
-        return data as (Booking & { item?: any })[];
+        return data || []; // Return data or empty array if null
       } catch (error) {
         console.error("Error fetching user bookings:", error);
         return [];
@@ -29,35 +30,28 @@ export function useCreateBooking() {
       location?: string;
     }) => {
       const payload = {
-        ...booking,
+        itemId: booking.itemId,
+        startDate: booking.startDate instanceof Date 
+          ? booking.startDate.toISOString().split('T')[0] 
+          : booking.startDate,
+        endDate: booking.endDate instanceof Date 
+          ? booking.endDate.toISOString().split('T')[0] 
+          : booking.endDate,
+        totalPrice: booking.totalPrice,
         userId: MOCK_USER_ID,
         status: "active",
         location: booking.location || null
       };
       
-      // Convert date objects to strings if needed
-      if (booking.startDate instanceof Date) {
-        payload.startDate = booking.startDate.toISOString().split('T')[0];
-      }
-      
-      if (booking.endDate instanceof Date) {
-        payload.endDate = booking.endDate.toISOString().split('T')[0];
-      }
-      
       // For debugging
       console.log("Creating booking with payload:", payload);
       
       try {
-        // Make sure to use the correct order of arguments
-        const response = await apiRequest("POST", "/api/bookings", payload);
-        console.log("Booking creation response:", response);
-        
-        // Create a fake response for now to fix the issue
-        return { 
-          id: new Date().getTime(), // Use timestamp as a temporary ID
-          ...payload,
-          createdAt: new Date()
-        };
+        // Make API request with the properly formatted payload
+        // apiRequest now automatically returns the JSON response
+        const data = await apiRequest("POST", "/api/bookings", payload);
+        console.log("Booking creation response:", data);
+        return data;
       } catch (error) {
         console.error("Error creating booking:", error);
         throw error;
@@ -73,9 +67,10 @@ export function useUpdateBookingStatus() {
   return useMutation({
     mutationFn: async ({ id, status }: { id: number; status: string }) => {
       try {
-        const response = await apiRequest("PATCH", `/api/bookings/${id}/status`, { status });
-        console.log("Booking status update response:", response);
-        return { id, status };
+        // apiRequest now returns JSON directly
+        const data = await apiRequest("PATCH", `/api/bookings/${id}/status`, { status });
+        console.log("Booking status update response:", data);
+        return data || { id, status }; // Return data if available, fallback to input
       } catch (error) {
         console.error("Error updating booking status:", error);
         throw error;
