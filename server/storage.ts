@@ -240,7 +240,7 @@ export class MemStorage implements IStorage {
     const diyProject1: InsertDiyProject = {
       title: "Build a wooden shoppiece",
       description: "Learn how to build a beautiful wooden shoppiece for your home",
-      image: "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+      image: "/attached_assets/dewalt-drill.jpg",
       duration: "30 min step guide",
       difficulty: "Medium",
       toolsRequired: ["Hammer", "Saw", "Screwdriver", "Drill"],
@@ -250,7 +250,7 @@ export class MemStorage implements IStorage {
     const diyProject2: InsertDiyProject = {
       title: "Build a raised bed",
       description: "Create your own garden raised bed",
-      image: "https://images.unsplash.com/photo-1598902108854-10e335adac99?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+      image: "/attached_assets/raised-bed.jpeg",
       duration: "1 hr project",
       difficulty: "Easy",
       toolsRequired: ["Garden Shovel", "Drill", "Measuring Tape"],
@@ -260,7 +260,7 @@ export class MemStorage implements IStorage {
     const diyProject3: InsertDiyProject = {
       title: "Build a tic-tac-toe board",
       description: "Fun family project to create a wooden game",
-      image: "https://images.unsplash.com/photo-1547050605-2f268cd5dbbf?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+      image: "/attached_assets/tic-tac-toe.jpeg",
       duration: "1 hr project",
       difficulty: "Easy",
       toolsRequired: ["Saw", "Sandpaper", "Paint Brush"],
@@ -271,7 +271,7 @@ export class MemStorage implements IStorage {
     const diyProject4: InsertDiyProject = {
       title: "Build a herb planter",
       description: "Create a beautiful indoor herb planter for your kitchen",
-      image: "https://images.unsplash.com/photo-1595352865347-3a2b90224bee?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+      image: "/attached_assets/shovel.jpg",
       duration: "45 min project",
       difficulty: "Easy",
       toolsRequired: ["Drill", "Hand Saw", "Hammer"],
@@ -281,7 +281,7 @@ export class MemStorage implements IStorage {
     const diyProject5: InsertDiyProject = {
       title: "Custom kitchen shelf",
       description: "Build a floating kitchen shelf for spices and utensils",
-      image: "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+      image: "/attached_assets/lawn-mover.jpg",
       duration: "2 hr project",
       difficulty: "Medium",
       toolsRequired: ["Hammer Drill", "Level", "Screwdriver", "Tape Measure"],
