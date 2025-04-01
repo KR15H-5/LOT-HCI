@@ -37,31 +37,31 @@ export default function DiyProjectDetailsPage() {
       step: 1,
       title: "Gather materials",
       description: "Collect all required tools and materials before starting.",
-      image: "https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      image: "https://www.modularclayproducts.co.uk/wp-content/uploads/2021/03/UK-bricklayer-putting-facing-brick-on-mortar.jpg"
     },
     {
       step: 2,
       title: "Measure and plan",
       description: "Take accurate measurements and sketch out your design.",
-      image: "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+      image: "https://www.awoodidea.co.uk/wp-content/uploads/2018/05/pexels-ono-kosuki-5973889-scaled.jpg"
     },
     {
       step: 3,
       title: "Cut materials",
       description: "Carefully cut wood or other materials according to your measurements.",
-      image: "https://images.unsplash.com/photo-1572297870735-d79e4b603f4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      image: "https://www.expondo.co.uk/inspirations/wp-content/uploads/2021/04/types-of-circular-saws-for-wood.jpg"
     },
     {
       step: 4, 
       title: "Assemble pieces",
       description: "Join the cut pieces together using screws, nails, or adhesive.",
-      image: "https://images.unsplash.com/photo-1598902108854-10e335adac99?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+      image: "https://ichef.bbci.co.uk/images/ic/480xn/p06c4zl2.jpg"
     },
     {
       step: 5,
       title: "Finish and decorate",
       description: "Sand rough edges, apply paint or stain, and add any decorative elements.",
-      image: "https://images.unsplash.com/photo-1547050605-2f268cd5dbbf?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+      image: "https://ak1.ostkcdn.com/images/products/is/images/direct/6381c28c5d826fc10cee2df048ed4a01320a8d8f/43%22-Fire-Pit%2C-Outdoor-Fire-Pits-with-Cooking-Grill%2C-Wood-Burning-Fire-Pits%2C-Octagonal-Heavy-Duty-Large-Firepit-with-Poker.jpg?impolicy=medium"
     }
   ];
 
@@ -69,21 +69,21 @@ export default function DiyProjectDetailsPage() {
   const relatedProjects = [
     {
       id: 4,
-      title: "Build a herb planter",
+      title: "Herb planter",
       difficulty: "Easy",
-      image: "https://images.unsplash.com/photo-1595352865347-3a2b90224bee?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+      image: "https://www.knowlenets.co.uk/cdn/shop/products/HerbWallplantersun-WEB-KN.jpg?v=1635328547"
     },
     {
       id: 5,
       title: "Custom kitchen shelf",
       difficulty: "Medium",
-      image: "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+      image: "https://www.castinstyle.co.uk/image/cache/catalog/images/products/normal/6-Lath-Kitchen-Shelf-Rack-550x550.jpg"
     },
     {
       id: 6,
       title: "Backyard fire pit",
       difficulty: "Hard",
-      image: "https://images.unsplash.com/photo-1525890374104-c89fe65af084?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8YJFqbhR9VUTgSrb_uQ1uYKs8VhZVTjtRzQ&s"
     }
   ];
 

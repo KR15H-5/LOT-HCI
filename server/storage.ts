@@ -248,9 +248,9 @@ export class MemStorage implements IStorage {
       type: "project"
     };
     const diyProject1: InsertDiyProject = {
-      title: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf323LJZ9d5zGdPHfHYbVNYxBYzPy7AkzKyA&s",
+      title: "Wooden Shoppiece",
       description: "Learn how to build a beautiful wooden shoppiece for your home",
-      image: "../..//attached_assets/dewalt-drill.jpg",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1qMK_mg5v1p-A6ignAXLbDrix6vuOSuUYJw&s",
       duration: "30 min step guide",
       difficulty: "Medium",
       toolsRequired: ["Hammer", "Saw", "Screwdriver", "Drill"],
@@ -321,9 +321,17 @@ export class MemStorage implements IStorage {
       rating: 4,
       comment: "Great tool, but I wish they provided more detailed usage instructions. Staff was very helpful though!"
     };
-    
+    const testimonial3: InsertTestimonial = {
+      itemId: 1,
+      userId: 1,
+      rating: 5,
+      comment: "This DeWalt drill is amazing! Perfect for all my home projects. The condition was excellent and it worked flawlessly."
+    };
     this.addTestimonial(testimonial1);
     this.addTestimonial(testimonial2);
+    this.addTestimonial(testimonial3);
+    
+    
     
     // Create user certificates
     const certificate1: InsertCertificate = {
