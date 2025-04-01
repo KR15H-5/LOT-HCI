@@ -132,7 +132,7 @@ export class MemStorage implements IStorage {
       name: "DeWalt Power Drill",
       description: "High-performance tool",
       category: "Tools",
-      image: "https://images.unsplash.com/photo-1581147036324-c71f53d164a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+      image: "/attached_assets/dewalt-drill.jpg",
       additionalImages: [
         "https://images.unsplash.com/photo-1664226635992-9c7b81afcf98?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
       ],
@@ -158,7 +158,7 @@ export class MemStorage implements IStorage {
       name: "Garden Shovel",
       description: "Durable and lightweight",
       category: "Garden",
-      image: "https://images.unsplash.com/photo-1586280226616-6045e35a0803?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+      image: "/attached_assets/shovel.jpg",
       suitableTasks: ["Gardening", "Planting", "Digging"],
       suitability: ["Beginners", "Elderly"],
       maxHireDuration: 14,
@@ -173,7 +173,7 @@ export class MemStorage implements IStorage {
       name: "Lawn Mower",
       description: "Electric lawn mower",
       category: "Garden",
-      image: "https://images.unsplash.com/photo-1520996729250-7d888a835cc4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+      image:"/attached_assets/lawn-mover.jpg",
       suitableTasks: ["Lawn care", "Garden maintenance"],
       suitability: ["Adults"],
       maxHireDuration: 5,
