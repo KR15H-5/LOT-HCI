@@ -110,13 +110,14 @@ export default function BookingPage() {
 
         {/* Item Summary */}
         <div className="flex items-center mb-6">
-          <div className="w-16 h-16 bg-gray-200 rounded-lg mr-3 overflow-hidden">
+          {/* Remove the image element causing the white box */}
+          {/* <div className="w-16 h-16 bg-gray-200 rounded-lg mr-3 overflow-hidden">
             <img
               src={item.image}
               alt={item.name}
               className="w-full h-full object-cover"
             />
-          </div>
+          </div> */}
           <div>
             <h2 className="font-semibold text-lg">{item.name}</h2>
             <p className="text-gray-500 text-sm">{item.description}</p>
