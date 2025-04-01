@@ -158,7 +158,7 @@ export class MemStorage implements IStorage {
       name: "Garden Shovel",
       description: "Durable and lightweight",
       category: "Garden",
-      image: "/attached_assets/shovel.jpg",
+      image: "../..//attached_assets/shovel.jpg",
       suitableTasks: ["Gardening", "Planting", "Digging"],
       suitability: ["Beginners", "Elderly"],
       maxHireDuration: 14,
@@ -173,7 +173,7 @@ export class MemStorage implements IStorage {
       name: "Lawn Mower",
       description: "Electric lawn mower",
       category: "Garden",
-      image:"/attached_assets/lawn-mover.jpg",
+      image:"../..//attached_assets/lawn-mover.jpg",
       suitableTasks: ["Lawn care", "Garden maintenance"],
       suitability: ["Adults"],
       maxHireDuration: 5,
@@ -240,7 +240,7 @@ export class MemStorage implements IStorage {
     const diyProject1: InsertDiyProject = {
       title: "Build a wooden shoppiece",
       description: "Learn how to build a beautiful wooden shoppiece for your home",
-      image: "/attached_assets/dewalt-drill.jpg",
+      image: "../..//attached_assets/dewalt-drill.jpg",
       duration: "30 min step guide",
       difficulty: "Medium",
       toolsRequired: ["Hammer", "Saw", "Screwdriver", "Drill"],
@@ -250,7 +250,7 @@ export class MemStorage implements IStorage {
     const diyProject2: InsertDiyProject = {
       title: "Build a raised bed",
       description: "Create your own garden raised bed",
-      image: "/attached_assets/raised-bed.jpeg",
+      image: "../..//attached_assets/raised-bed.jpeg",
       duration: "1 hr project",
       difficulty: "Easy",
       toolsRequired: ["Garden Shovel", "Drill", "Measuring Tape"],
@@ -260,7 +260,7 @@ export class MemStorage implements IStorage {
     const diyProject3: InsertDiyProject = {
       title: "Build a tic-tac-toe board",
       description: "Fun family project to create a wooden game",
-      image: "/attached_assets/tic-tac-toe.jpeg",
+      image: "../..//attached_assets/tic-tac-toe.jpeg",
       duration: "1 hr project",
       difficulty: "Easy",
       toolsRequired: ["Saw", "Sandpaper", "Paint Brush"],
@@ -271,7 +271,7 @@ export class MemStorage implements IStorage {
     const diyProject4: InsertDiyProject = {
       title: "Build a herb planter",
       description: "Create a beautiful indoor herb planter for your kitchen",
-      image: "/attached_assets/shovel.jpg",
+      image: "../..//attached_assets/shovel.jpg",
       duration: "45 min project",
       difficulty: "Easy",
       toolsRequired: ["Drill", "Hand Saw", "Hammer"],
@@ -281,7 +281,7 @@ export class MemStorage implements IStorage {
     const diyProject5: InsertDiyProject = {
       title: "Custom kitchen shelf",
       description: "Build a floating kitchen shelf for spices and utensils",
-      image: "/attached_assets/lawn-mover.jpg",
+      image: "../../attached_assets/lawn-mover.jpg",
       duration: "2 hr project",
       difficulty: "Medium",
       toolsRequired: ["Hammer Drill", "Level", "Screwdriver", "Tape Measure"],
