@@ -148,13 +148,6 @@ export default function ItemDetailsPage() {
               )}
             </button>
           </div>
-          
-          {/* Item Category Badge */}
-          <div className="absolute top-4 left-1/2 transform -translate-x-1/2">
-            <Badge className="bg-white/90 backdrop-blur-sm text-gray-800 hover:bg-white/90">
-              {item.category}
-            </Badge>
-          </div>
         </div>
 
         {/* Details Content */}
@@ -174,11 +167,11 @@ export default function ItemDetailsPage() {
           {/* Price information */}
           <div className="mb-6 flex justify-between items-center">
             <div>
-              <div className="text-2xl font-bold text-primary">{formatCurrency(item.pricePerDay || 25)}</div>
+              <div className="text-2xl font-bold text-primary">{formatCurrency(25)}</div>
               <div className="text-sm text-gray-500">per day</div>
             </div>
             <div className="text-right">
-              <div className="text-lg font-semibold">{formatCurrency(item.pricePerWeek || (item.pricePerDay * 6 || 150))}</div>
+              <div className="text-lg font-semibold">{formatCurrency(25 * 6)}</div>
               <div className="text-sm text-gray-500">per week</div>
             </div>
           </div>
