@@ -237,6 +237,16 @@ export class MemStorage implements IStorage {
     this.createItem(hammerDrill);
     
     // Create DIY Projects
+
+    const diyProject2: InsertDiyProject = {
+      title: "Raised bed",
+      description: "Create your own garden raised bed",
+      image: "https://static1.squarespace.com/static/5811566d20099e23814644fd/t/63406fedf2a008202cef28f9/1665167341384/DAMMAN~2.JPG?format=1500w",
+      duration: "1 hr project",
+      difficulty: "Easy",
+      toolsRequired: ["Garden Shovel", "Drill", "Measuring Tape"],
+      type: "project"
+    };
     const diyProject1: InsertDiyProject = {
       title: "Build a wooden shoppiece",
       description: "Learn how to build a beautiful wooden shoppiece for your home",
@@ -247,20 +257,12 @@ export class MemStorage implements IStorage {
       type: "step guide"
     };
     
-    const diyProject2: InsertDiyProject = {
-      title: "Build a raised bed",
-      description: "Create your own garden raised bed",
-      image: "../..//attached_assets/raised-bed.jpeg",
-      duration: "1 hr project",
-      difficulty: "Easy",
-      toolsRequired: ["Garden Shovel", "Drill", "Measuring Tape"],
-      type: "project"
-    };
+    
     
     const diyProject3: InsertDiyProject = {
-      title: "Build a tic-tac-toe board",
+      title: "Tic-tac-toe board",
       description: "Fun family project to create a wooden game",
-      image: "../..//attached_assets/tic-tac-toe.jpeg",
+      image: "https://i.etsystatic.com/12707575/r/il/f9ddd1/3037721964/il_fullxfull.3037721964_hcum.jpg",
       duration: "1 hr project",
       difficulty: "Easy",
       toolsRequired: ["Saw", "Sandpaper", "Paint Brush"],
@@ -269,9 +271,9 @@ export class MemStorage implements IStorage {
     
     // Add more DIY projects
     const diyProject4: InsertDiyProject = {
-      title: "Build a herb planter",
+      title: "Herb planter",
       description: "Create a beautiful indoor herb planter for your kitchen",
-      image: "../..//attached_assets/shovel.jpg",
+      image: "https://www.knowlenets.co.uk/cdn/shop/products/HerbWallplantersun-WEB-KN.jpg?v=1635328547",
       duration: "45 min project",
       difficulty: "Easy",
       toolsRequired: ["Drill", "Hand Saw", "Hammer"],
@@ -281,7 +283,7 @@ export class MemStorage implements IStorage {
     const diyProject5: InsertDiyProject = {
       title: "Custom kitchen shelf",
       description: "Build a floating kitchen shelf for spices and utensils",
-      image: "../../attached_assets/lawn-mover.jpg",
+      image: "https://www.castinstyle.co.uk/image/cache/catalog/images/products/normal/6-Lath-Kitchen-Shelf-Rack-550x550.jpg",
       duration: "2 hr project",
       difficulty: "Medium",
       toolsRequired: ["Hammer Drill", "Level", "Screwdriver", "Tape Measure"],
@@ -291,7 +293,7 @@ export class MemStorage implements IStorage {
     const diyProject6: InsertDiyProject = {
       title: "Backyard fire pit",
       description: "Build a durable and safe fire pit for your backyard",
-      image: "https://images.unsplash.com/photo-1525890374104-c89fe65af084?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8YJFqbhR9VUTgSrb_uQ1uYKs8VhZVTjtRzQ&s",
       duration: "3 hr project",
       difficulty: "Hard",
       toolsRequired: ["Shovel", "Rake", "Wheelbarrow", "Level", "Tape Measure"],
