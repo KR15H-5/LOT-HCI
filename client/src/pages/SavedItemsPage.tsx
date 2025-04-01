@@ -23,7 +23,7 @@ const MOCK_SAVED_ITEMS = [
       description: "Professional-grade power drill",
       category: "Tools",
       rating: 4.8,
-      image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+      image: "https://i.ebayimg.com/images/g/4o0AAOSwAO9iDvvu/s-l1200.jpg",
       specifications: {
         weight: "2.5 kg",
         dimensions: "30 × 20 × 10 cm",
@@ -43,7 +43,7 @@ const MOCK_SAVED_ITEMS = [
       description: "Electric lawn mower",
       category: "Garden",
       rating: 4.2,
-      image: "https://images.unsplash.com/photo-1520996729250-7d888a835cc4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+      image: "https://cdn.mos.cms.futurecdn.net/hUoSSQLzrxcmcFsWcwiRVe.jpg",
       pricePerDay: 35,
       pricePerWeek: 200
     }
@@ -59,7 +59,7 @@ const MOCK_SAVED_ITEMS = [
       description: "Powerful leaf blower",
       category: "Garden",
       rating: 4.0,
-      image: "https://images.unsplash.com/photo-1635695311335-3d576780a693?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+      image: "https://www.therange.co.uk/media/6/8/1734617230_11_1302.jpg",
       pricePerDay: 25,
       pricePerWeek: 140
     }
@@ -79,7 +79,7 @@ const MOCK_RECENT_ITEMS = [
       description: "Durable and lightweight",
       category: "Garden",
       rating: 4.5,
-      image: "https://images.unsplash.com/photo-1586280226616-6045e35a0803?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+      image: "https://i.etsystatic.com/21657904/r/il/191d2b/5544106641/il_fullxfull.5544106641_stre.jpg",
       pricePerDay: 15,
       pricePerWeek: 90
     }
@@ -95,7 +95,7 @@ const MOCK_RECENT_ITEMS = [
       description: "Professional drill",
       category: "Tools",
       rating: 4.7,
-      image: "https://images.unsplash.com/photo-1664226635992-9c7b81afcf98?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80",
+      image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
       pricePerDay: 30,
       pricePerWeek: 175
     }
@@ -111,7 +111,7 @@ const MOCK_RECENT_ITEMS = [
       description: "Heavy-duty hammer drill",
       category: "Tools",
       rating: 4.6,
-      image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+      image: "https://www.lawson-his.co.uk/media/catalog/product/cache/1/image/1200x/040ec09b1e35df139433887a97daa66f/h/r/xhr2631ft_5_1.jpg.pagespeed.ic.gEoPX664qx.jpg",
       pricePerDay: 40,
       pricePerWeek: 220
     }
@@ -127,7 +127,7 @@ const MOCK_RECENT_ITEMS = [
       description: "Professional stand mixer",
       category: "Kitchen",
       rating: 4.9,
-      image: "https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      image: "https://www.therange.co.uk/media/5/5/1735893000_11_6035.jpg",
       pricePerDay: 45,
       pricePerWeek: 250
     }

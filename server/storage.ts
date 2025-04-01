@@ -248,7 +248,7 @@ export class MemStorage implements IStorage {
       type: "project"
     };
     const diyProject1: InsertDiyProject = {
-      title: "Build a wooden shoppiece",
+      title: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf323LJZ9d5zGdPHfHYbVNYxBYzPy7AkzKyA&s",
       description: "Learn how to build a beautiful wooden shoppiece for your home",
       image: "../..//attached_assets/dewalt-drill.jpg",
       duration: "30 min step guide",
