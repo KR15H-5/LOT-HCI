@@ -80,7 +80,7 @@ export default function ItemDetailsPage() {
   const itemImages = item.additionalImages && item.additionalImages.length > 0 
     ? [item.image, ...item.additionalImages] 
     : [
-        item.image || "https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        item.image || "/attached_assets/dewalt-drill.jpg",
         "https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1541976590-713941681591?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
       ];
