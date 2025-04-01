@@ -251,7 +251,7 @@ export class MemStorage implements IStorage {
       title: "Wooden Shoppiece",
       description: "Learn how to build a beautiful wooden shoppiece for your home",
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1qMK_mg5v1p-A6ignAXLbDrix6vuOSuUYJw&s",
-      duration: "30 min step guide",
+      duration: "30 min project",
       difficulty: "Medium",
       toolsRequired: ["Hammer", "Saw", "Screwdriver", "Drill"],
       type: "step guide"

@@ -305,55 +305,41 @@ export default function ItemDetailsPage() {
             </TabsContent>
             
             <TabsContent value="instructions" className="pt-4">
-              {/* Care Instructions */}
-              {item.careInstructions && (
-                <div className="mb-4">
-                  <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
-                    <Info className="h-4 w-4 mr-1.5" /> Care Instructions
-                  </h3>
-                  <div className="bg-blue-50 rounded-lg p-3">
-                    <p className="text-sm text-gray-700">{item.careInstructions}</p>
-                  </div>
-                </div>
-              )}
-              
-              {/* Safety Instructions */}
-              {item.safetyInstructions && (
-                <div className="mb-4">
-                  <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
-                    <ShieldCheck className="h-4 w-4 mr-1.5" /> Safety Guidelines
-                  </h3>
-                  <div className="bg-red-50 rounded-lg p-3">
-                    <p className="text-sm text-gray-700">{item.safetyInstructions}</p>
-                  </div>
-                </div>
-              )}
-              
-              {/* Safety Images */}
-              <div className="mb-4">
-                <h3 className="text-sm font-semibold text-gray-700 mb-2">Safety Information</h3>
-                <div className="grid grid-cols-2 gap-2">
-                  <img 
-                    src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                    alt="Safety instruction" 
-                    className="rounded-lg w-full h-24 object-cover"
-                  />
-                  <img 
-                    src="https://images.unsplash.com/photo-1574269923091-14b17bdd16e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                    alt="Safety instruction" 
-                    className="rounded-lg w-full h-24 object-cover"
-                  />
-                </div>
-              </div>
-              
-              {/* Additional care information */}
-              <div className="bg-gray-50 rounded-lg p-3 mb-4">
-                <h4 className="text-sm font-semibold mb-1">Return Condition</h4>
-                <p className="text-xs text-gray-600">
-                  Items must be returned in the same condition they were received, clean and 
-                  fully functional. Any damage may result in additional charges.
-                </p>
-              </div>
+              {/* Safety Information */}
+<div className="mb-4">
+  <h3 className="text-sm font-semibold text-gray-700 mb-2">Safety Information</h3>
+  <div className="space-y-3">
+    <div className="bg-red-50 rounded-lg p-3">
+      <h4 className="text-sm font-medium text-red-800 mb-1">Before Use</h4>
+      <ul className="text-sm text-red-700 list-disc pl-4 space-y-1">
+        <li>Inspect equipment for any damage</li>
+        <li>Ensure all safety guards are in place</li>
+        <li>Check power cords for exposed wiring</li>
+        <li>Verify proper battery installation if applicable</li>
+      </ul>
+    </div>
+    
+    <div className="bg-yellow-50 rounded-lg p-3">
+      <h4 className="text-sm font-medium text-yellow-800 mb-1">During Use</h4>
+      <ul className="text-sm text-yellow-700 list-disc pl-4 space-y-1">
+        <li>Wear appropriate protective equipment</li>
+        <li>Keep work area clean and well lit</li>
+        <li>Maintain proper grip and stance</li>
+        <li>Never force the tool</li>
+      </ul>
+    </div>
+    
+    <div className="bg-blue-50 rounded-lg p-3">
+      <h4 className="text-sm font-medium text-blue-800 mb-1">After Use</h4>
+      <ul className="text-sm text-blue-700 list-disc pl-4 space-y-1">
+        <li>Clean equipment thoroughly</li>
+        <li>Store in a dry, secure location</li>
+        <li>Report any issues immediately</li>
+        <li>Remove batteries if applicable</li>
+      </ul>
+    </div>
+  </div>
+</div>
             </TabsContent>
             
             <TabsContent value="reviews" className="pt-4">
