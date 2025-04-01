@@ -343,50 +343,6 @@ export default function ItemDetailsPage() {
             </TabsContent>
             
             <TabsContent value="reviews" className="pt-4">
-              {/* Testimonials */}
-              {isLoadingTestimonials ? (
-                <div className="space-y-3">
-                  <div className="bg-gray-100 h-24 rounded-lg animate-pulse"></div>
-                  <div className="bg-gray-100 h-24 rounded-lg animate-pulse"></div>
-                </div>
-              ) : testimonials.length > 0 ? (
-                <div className="space-y-3">
-                  {testimonials.map((testimonial) => (
-                    <div key={testimonial.id} className="bg-gray-50 p-3 rounded-lg">
-                      <div className="flex items-center mb-2">
-                        <div className="w-10 h-10 rounded-full bg-gray-300 mr-3 overflow-hidden">
-                          <img
-                            src={testimonial.user?.profileImage || "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"}
-                            alt={testimonial.user?.fullName}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div>
-                          <h3 className="text-sm font-semibold">{testimonial.user?.fullName || "Jane Doe"}</h3>
-                          <div className="flex">
-                            {[...Array(5)].map((_, i) => (
-                              <Star
-                                key={i}
-                                className={`h-3 w-3 ${
-                                  i < (testimonial.rating || 5) ? "text-yellow-500 fill-yellow-500" : "text-gray-300"
-                                }`}
-                              />
-                            ))}
-                            <span className="text-xs text-gray-500 ml-1">{testimonial.createdAt ? formatDate(new Date(testimonial.createdAt)) : "2 months ago"}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <p className="text-sm text-gray-600">{testimonial.comment || "This tool was perfect for my garden project. Easy to use and in great condition!"}</p>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8 px-4">
-                  <Star className="h-12 w-12 mx-auto text-gray-300 mb-2" />
-                  <h3 className="font-semibold mb-1">No reviews yet</h3>
-                  <p className="text-sm text-gray-500">Be the first to review this item after renting!</p>
-                </div>
-              )}
 
               {/* Sample testimonials if there are no real ones */}
               {testimonials.length === 0 && (
