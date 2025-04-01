@@ -84,6 +84,12 @@ export default function BookingPage() {
     });
   };
 
+  const handleBooking = () => {
+    // Logic to handle date selection (if any)
+    // Redirect to the checkout page with the selected item ID
+    navigate(`/checkout?itemId=${itemId}`); // Ensure itemId is defined
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <StatusBar />
@@ -182,6 +188,10 @@ export default function BookingPage() {
             </Button>
           )}
         </div>
+
+        <Button onClick={handleBooking}>
+          Confirm Booking
+        </Button>
       </div>
       
       <HomeIndicator />
