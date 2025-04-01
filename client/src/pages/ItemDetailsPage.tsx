@@ -409,7 +409,7 @@ export default function ItemDetailsPage() {
             </Button>
             <Button 
               className="flex-[2]" 
-              onClick={handleRentNow}
+              onClick={() => navigate("/checkout")}
             >
               Rent Now
             </Button>
