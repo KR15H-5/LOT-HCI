@@ -157,19 +157,19 @@ export default function BookingPage() {
         <div className="mb-6 flex items-center">
           <div className="w-12 h-12 bg-gray-200 rounded-full mr-3 overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"
+              src="https://www.lboro.ac.uk/media/media/schoolanddepartments/sport-exercise-and-health-sciences/ssehs-website/images/staff-profiles/mark-king-480.jpg"
               alt="Owner"
               className="w-full h-full object-cover"
             />
           </div>
           <div>
-            <h2 className="font-semibold">Jane Doe</h2>
+            <h2 className="font-semibold">Mark John</h2>
             <p className="text-gray-500 text-sm">Carpenter</p>
           </div>
         </div>
 
         {/* Pricing Options */}
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        {/* <div className="grid grid-cols-2 gap-4 mb-4">
           <Button 
             className="py-3" 
             onClick={() => handleCreateBooking('day')}
@@ -187,8 +187,9 @@ export default function BookingPage() {
               {item.pricePerWeek ? `$${item.pricePerWeek}/week` : "Price unavailable"}
             </Button>
           )}
-        </div>
+        </div> */}
 
+        {/* Confirm Booking Button */}
         <Button onClick={handleBooking}>
           Confirm Booking
         </Button>
