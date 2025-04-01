@@ -217,7 +217,7 @@ export default function ItemDetailsPage() {
             <TabsList className="grid grid-cols-3 bg-gray-100">
               <TabsTrigger value="details">Details</TabsTrigger>
               <TabsTrigger value="instructions">Care & Safety</TabsTrigger>
-              <TabsTrigger value="reviews">Reviews ({testimonials.length})</TabsTrigger>
+              <TabsTrigger value="reviews">Reviews (2)</TabsTrigger>
             </TabsList>
             
             <TabsContent value="details" className="pt-4">
