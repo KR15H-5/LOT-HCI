@@ -1,189 +1,478 @@
-import { useState, useEffect } from "react";
-import { useLocation, Link } from "wouter";
-import { ArrowLeft, Share2 } from "lucide-react";
+import { useState } from "react";
+import { useParams, useLocation, Link } from "wouter";
+import { 
+  ArrowLeft, Share2, Star, Calendar, Tag, Users, 
+  ShieldCheck, Info, BarChart, Bookmark, BookmarkCheck, 
+  Clock, Award, BadgeAlert, HeartPulse 
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
 import StatusBar from "@/components/layout/StatusBar";
+import BottomNavigation from "@/components/layout/BottomNavigation";
 import HomeIndicator from "@/components/layout/HomeIndicator";
-import { DatePicker } from "@/components/ui/date-picker";
-import { useItemById } from "@/hooks/useItems";
-import { useCreateBooking } from "@/hooks/useBookings";
-import { formatDate, getDateXDaysFromNow } from "@/lib/data";
-import { ReactNode } from "react";
+import { useItemDetails } from "@/hooks/useItems";
+import { useSavedItems, useSaveItem, useRemoveSavedItem } from "@/hooks/useSavedItems";
+import { useQuery } from "@tanstack/react-query";
+import { formatCurrency } from "@/lib/utils";
+import { formatDate } from "@/lib/data";
 
-export default function BookingPage() {
-  const [locationPath, navigate] = useLocation();
+export default function ItemDetailsPage() {
+  const params = useParams<{ id: string }>();
+  const [_, navigate] = useLocation();
+  const itemId = params?.id ? parseInt(params.id) : null;
   
-  // Get the item ID from URL parameters - ensure proper parsing
-  const params = new URLSearchParams(window.location.search);
-  const itemIdParam = params.get('itemId');
-  const itemId = itemIdParam ? parseInt(itemIdParam, 10) : null;
+  const { data: item, isLoading } = useItemDetails(itemId);
+  const { data: testimonials = [], isLoading: isLoadingTestimonials } = useQuery<any[]>({
+    queryKey: ["/api/testimonials", itemId],
+    enabled: !!itemId,
+  });
   
-  // Log for debugging
-  console.log("BookingPage: itemId from query params:", itemId);
+  const { data: savedItems = [] } = useSavedItems();
+  const saveItem = useSaveItem();
+  const removeItem = useRemoveSavedItem();
   
-  useEffect(() => {
-    // For debugging only
-    console.log("Current location:", locationPath);
-    console.log("Item ID from query:", itemId);
-  }, [locationPath, itemId]);
-
-  // For prototype, always use item ID 1 if missing
-  useEffect(() => {
-    if (itemId === null || isNaN(itemId)) {
-      console.log("Using default item ID 1 for prototype");
-      navigate("/booking?itemId=1", { replace: true });
-    }
-  }, [itemId, navigate]);
-
-  const { data: item, isLoading } = useItemById(itemId);
-  const createBooking = useCreateBooking();
-
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(getDateXDaysFromNow(1));
-  const [pickupLocation, setPickupLocation] = useState<string>("Lenton");
-
-  if (isLoading || !item) {
+  const [isImageFullscreen, setIsImageFullscreen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState("details");
+  
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex justify-center items-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
-
-  const handleCreateBooking = (priceOption: "day" | "week") => {
-    // Convert to Date objects for calculation if they aren't already
-    const startDateObj = startDate instanceof Date ? startDate : new Date(startDate);
-    const endDateObj = endDate instanceof Date ? endDate : new Date(endDate);
-    
-    // Calculate days between dates
-    const days = Math.max(1, Math.ceil((endDateObj.getTime() - startDateObj.getTime()) / (1000 * 60 * 60 * 24)));
-    
-    // Calculate total price based on option
-    const totalPrice = priceOption === "day" 
-      ? item.pricePerDay * days
-      : item.pricePerWeek || (item.pricePerDay * 7);
-
-    console.log(`Creating booking for ${days} days at ${priceOption} rate`);
-
-    createBooking.mutate({
-      itemId: item.id,
-      startDate: startDateObj,
-      endDate: endDateObj,
-      totalPrice,
-      location: pickupLocation
-    }, {
-      onSuccess: (data) => {
-        console.log("Booking created successfully:", data);
-        // Data now contains the actual booking with an ID
-        navigate(`/confirmation/${item.id}?bookingId=${data.id}`);
-      },
-      onError: (error) => {
-        console.error("Error creating booking:", error);
-        alert("There was an error creating your booking. Please try again.");
-      }
-    });
+  
+  if (!item) {
+    return (
+      <div className="min-h-screen bg-background flex justify-center items-center p-4">
+        <div className="text-center">
+          <h1 className="text-xl font-bold mb-2">Item Not Found</h1>
+          <p className="text-gray-500 mb-4">The item you're looking for doesn't exist or has been removed.</p>
+          <Link href="/search">
+            <Button>Browse Items</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+  
+  const isSaved = savedItems?.some(saved => saved.itemId === item.id);
+  
+  const handleSaveToggle = () => {
+    if (isSaved) {
+      removeItem.mutate(item.id);
+    } else {
+      saveItem.mutate(item.id);
+    }
+  };
+  
+  const handleRentNow = () => {
+    // For the prototype, hardcode to item 1 to ensure reliability
+    console.log("Rent Now button clicked - using hardcoded item ID 1");
+    // Using hardcoded ID=1 for the prototype
+    navigate(`/booking?itemId=1`);
   };
 
+  // Get all item images (use main image or fallback if no additional images)
+  const itemImages = item.additionalImages && item.additionalImages.length > 0 
+    ? [item.image, ...item.additionalImages] 
+    : [
+        item.image || "https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1541976590-713941681591?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      ];
+  
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen pb-20 bg-background">
       <StatusBar />
       
-      <div className="p-4">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center">
-            <button className="p-1 mr-2" onClick={() => navigate("/")}>
-              <ArrowLeft className="h-6 w-6" />
-            </button>
-            <h1 className="text-xl font-bold">Confirm Booking</h1>
-          </div>
-          <button className="p-1">
-            <Share2 className="h-6 w-6" />
-          </button>
-        </div>
-
-        {/* Item Summary */}
-        <div className="flex items-center mb-6">
-          <div className="w-16 h-16 bg-gray-200 rounded-lg mr-3 overflow-hidden">
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div>
-            <h2 className="font-semibold text-lg">{item.name}</h2>
-            <p className="text-gray-500 text-sm">{item.description}</p>
-          </div>
-        </div>
-
-        {/* Rental Period */}
-        <div className="mb-6">
-          <h2 className="font-semibold mb-2">Rental Period</h2>
-          <DatePicker
-            startDate={startDate}
-            endDate={endDate}
-            onChangeStartDate={setStartDate}
-            onChangeEndDate={setEndDate}
-            maxDays={item.maxHireDuration}
+      <div className="relative">
+        {/* Header Image */}
+        <div 
+          className="w-full h-[280px] bg-gray-200 relative"
+          onClick={() => setIsImageFullscreen(!isImageFullscreen)}
+        >
+          <img
+            src={itemImages[selectedImageIndex]}
+            alt={item.name}
+            className={`w-full h-full ${isImageFullscreen ? 'object-contain' : 'object-cover'}`}
           />
-        </div>
-
-        {/* Selected Dates Summary */}
-        <div className="flex justify-between mb-6 text-sm">
-          <div>
-            <p className="text-gray-500">Start</p>
-            <p className="font-medium">{formatDate(startDate)}</p>
+          
+          {/* Image thumbnails */}
+          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+            {itemImages.map((image, index) => (
+              <button 
+                key={index}
+                className={`w-8 h-8 rounded-full border-2 ${
+                  selectedImageIndex === index 
+                    ? 'border-white' 
+                    : 'border-transparent opacity-70'
+                } overflow-hidden`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedImageIndex(index);
+                }}
+              >
+                <img 
+                  src={image} 
+                  alt={`Thumbnail ${index + 1}`} 
+                  className="w-full h-full object-cover" 
+                />
+              </button>
+            ))}
           </div>
-          <div className="text-right">
-            <p className="text-gray-500">End</p>
-            <p className="font-medium">{formatDate(endDate)}</p>
-          </div>
-        </div>
-
-        {/* Location */}
-        <div className="mb-6">
-          <h2 className="font-semibold mb-2">Location</h2>
-          <p className="text-gray-600">{pickupLocation}</p>
-        </div>
-
-        {/* Owner Information */}
-        <div className="mb-6 flex items-center">
-          <div className="w-12 h-12 bg-gray-200 rounded-full mr-3 overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"
-              alt="Owner"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div>
-            <h2 className="font-semibold">Jane Doe</h2>
-            <p className="text-gray-500 text-sm">Carpenter</p>
-          </div>
-        </div>
-
-        {/* Pricing Options */}
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <Button 
-            className="py-3" 
-            onClick={() => handleCreateBooking('day')}
-            disabled={createBooking.isPending}
-          >
-            {item.pricePerDay ? `$${item.pricePerDay}/day` : "Price unavailable"}
-          </Button>
-          {item.pricePerWeek && (
-            <Button 
-              variant="secondary" 
-              className="py-3" 
-              onClick={() => handleCreateBooking('week')}
-              disabled={createBooking.isPending}
+          
+          {/* Back and Save buttons */}
+          <div className="absolute top-4 left-4 right-4 flex justify-between">
+            <button 
+              className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("/");
+              }}
             >
-              {item.pricePerWeek ? `$${item.pricePerWeek}/week` : "Price unavailable"}
+              <ArrowLeft className="h-5 w-5 text-black" />
+            </button>
+            <button 
+              className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleSaveToggle();
+              }}
+            >
+              {isSaved ? (
+                <BookmarkCheck className="h-5 w-5 text-primary fill-primary" />
+              ) : (
+                <Bookmark className="h-5 w-5 text-black" />
+              )}
+            </button>
+          </div>
+          
+          {/* Item Category Badge */}
+          <div className="absolute top-4 left-1/2 transform -translate-x-1/2">
+            <Badge className="bg-white/90 backdrop-blur-sm text-gray-800 hover:bg-white/90">
+              {item.category}
+            </Badge>
+          </div>
+        </div>
+
+        {/* Details Content */}
+        <div className="bg-white p-5 rounded-t-3xl -mt-8 relative z-10">
+          {/* Title and rating */}
+          <div className="mb-4">
+            <div className="flex justify-between items-start">
+              <h1 className="text-2xl font-bold text-gray-900">{item.name}</h1>
+              <div className="flex items-center bg-yellow-50 px-2 py-1 rounded-lg">
+                <Star className="h-4 w-4 text-yellow-500 fill-yellow-500 mr-1" />
+                <span className="font-semibold text-sm">{item.rating || "4.5"}</span>
+              </div>
+            </div>
+            <p className="text-gray-500 mt-1">{item.description}</p>
+          </div>
+
+          {/* Price information */}
+          <div className="mb-6 flex justify-between items-center">
+            <div>
+              <div className="text-2xl font-bold text-primary">{formatCurrency(item.pricePerDay || 25)}</div>
+              <div className="text-sm text-gray-500">per day</div>
+            </div>
+            <div className="text-right">
+              <div className="text-lg font-semibold">{formatCurrency(item.pricePerWeek || (item.pricePerDay * 6 || 150))}</div>
+              <div className="text-sm text-gray-500">per week</div>
+            </div>
+          </div>
+
+          {/* Status badges */}
+          <div className="mb-5 flex flex-wrap gap-2">
+            {item.maxHireDuration && (
+              <Badge variant="outline" className="text-xs rounded-full px-3 bg-blue-50 border-blue-100 text-blue-700">
+                <Calendar className="h-3 w-3 mr-1" /> Max {item.maxHireDuration} days
+              </Badge>
+            )}
+            {item.maxHireQuantity && (
+              <Badge variant="outline" className="text-xs rounded-full px-3 bg-green-50 border-green-100 text-green-700">
+                <Users className="h-3 w-3 mr-1" /> Max {item.maxHireQuantity} units
+              </Badge>
+            )}
+            {item.trainingRequired && (
+              <Badge variant="outline" className="text-xs rounded-full px-3 bg-amber-50 border-amber-100 text-amber-700">
+                <Award className="h-3 w-3 mr-1" /> Training Required
+              </Badge>
+            )}
+            {item.expertSupportRequired && (
+              <Badge variant="outline" className="text-xs rounded-full px-3 bg-purple-50 border-purple-100 text-purple-700">
+                <BadgeAlert className="h-3 w-3 mr-1" /> Expert Support
+              </Badge>
+            )}
+            {item.safetyInstructions && (
+              <Badge variant="outline" className="text-xs rounded-full px-3 bg-red-50 border-red-100 text-red-700">
+                <HeartPulse className="h-3 w-3 mr-1" /> Safety Guidelines
+              </Badge>
+            )}
+          </div>
+
+          {/* Tabs */}
+          <Tabs defaultValue="details" onValueChange={setActiveTab} className="mb-6">
+            <TabsList className="grid grid-cols-3 bg-gray-100">
+              <TabsTrigger value="details">Details</TabsTrigger>
+              <TabsTrigger value="instructions">Care & Safety</TabsTrigger>
+              <TabsTrigger value="reviews">Reviews ({testimonials.length})</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="details" className="pt-4">
+              {/* Suitable Tasks */}
+              {item.suitableTasks && item.suitableTasks.length > 0 && (
+                <div className="mb-4">
+                  <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                    <Tag className="h-4 w-4 mr-1.5" /> Suitable Tasks
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {item.suitableTasks.map((task, index) => (
+                      <Badge key={index} variant="secondary" className="rounded-full bg-gray-100">
+                        {task}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Suitability */}
+              {item.suitability && item.suitability.length > 0 && (
+                <div className="mb-4">
+                  <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                    <Users className="h-4 w-4 mr-1.5" /> Suitable For
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {item.suitability.map((suitable, index) => (
+                      <Badge key={index} variant="secondary" className="rounded-full bg-gray-100">
+                        {suitable}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Specifications */}
+              {item.specifications && Object.keys(item.specifications).length > 0 && (
+                <div className="mb-4">
+                  <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                    <BarChart className="h-4 w-4 mr-1.5" /> Specifications
+                  </h3>
+                  <div className="bg-gray-50 rounded-lg p-3">
+                    <div className="grid grid-cols-2 gap-y-2 gap-x-4">
+                      {Object.entries(item.specifications).map(([key, value]) => (
+                        <div key={key} className="flex flex-col">
+                          <span className="text-xs text-gray-500 capitalize">{key}</span>
+                          <span className="text-sm font-medium">{value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Hire Terms */}
+              <div className="mb-4">
+                <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                  <Clock className="h-4 w-4 mr-1.5" /> Hire Terms
+                </h3>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <div className="grid grid-cols-2 gap-y-2 gap-x-4">
+                    <div className="flex flex-col">
+                      <span className="text-xs text-gray-500">Max Hire Duration</span>
+                      <span className="text-sm font-medium">{item.maxHireDuration || 7} days</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs text-gray-500">Max Quantity</span>
+                      <span className="text-sm font-medium">{item.maxHireQuantity || 1} units</span>
+                    </div>
+                    {item.trainingRequired && (
+                      <div className="flex flex-col col-span-2">
+                        <span className="text-xs text-gray-500">Training Required</span>
+                        <span className="text-sm font-medium">{item.trainingRequired}</span>
+                      </div>
+                    )}
+                    {item.expertSupportRequired && (
+                      <div className="flex flex-col col-span-2">
+                        <span className="text-xs text-gray-500">Expert Support</span>
+                        <span className="text-sm font-medium">{item.expertSupportRequired}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="instructions" className="pt-4">
+              {/* Care Instructions */}
+              {item.careInstructions && (
+                <div className="mb-4">
+                  <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                    <Info className="h-4 w-4 mr-1.5" /> Care Instructions
+                  </h3>
+                  <div className="bg-blue-50 rounded-lg p-3">
+                    <p className="text-sm text-gray-700">{item.careInstructions}</p>
+                  </div>
+                </div>
+              )}
+              
+              {/* Safety Instructions */}
+              {item.safetyInstructions && (
+                <div className="mb-4">
+                  <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                    <ShieldCheck className="h-4 w-4 mr-1.5" /> Safety Guidelines
+                  </h3>
+                  <div className="bg-red-50 rounded-lg p-3">
+                    <p className="text-sm text-gray-700">{item.safetyInstructions}</p>
+                  </div>
+                </div>
+              )}
+              
+              {/* Safety Images */}
+              <div className="mb-4">
+                <h3 className="text-sm font-semibold text-gray-700 mb-2">Safety Information</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  <img 
+                    src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                    alt="Safety instruction" 
+                    className="rounded-lg w-full h-24 object-cover"
+                  />
+                  <img 
+                    src="https://images.unsplash.com/photo-1574269923091-14b17bdd16e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                    alt="Safety instruction" 
+                    className="rounded-lg w-full h-24 object-cover"
+                  />
+                </div>
+              </div>
+              
+              {/* Additional care information */}
+              <div className="bg-gray-50 rounded-lg p-3 mb-4">
+                <h4 className="text-sm font-semibold mb-1">Return Condition</h4>
+                <p className="text-xs text-gray-600">
+                  Items must be returned in the same condition they were received, clean and 
+                  fully functional. Any damage may result in additional charges.
+                </p>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="reviews" className="pt-4">
+              {/* Testimonials */}
+              {isLoadingTestimonials ? (
+                <div className="space-y-3">
+                  <div className="bg-gray-100 h-24 rounded-lg animate-pulse"></div>
+                  <div className="bg-gray-100 h-24 rounded-lg animate-pulse"></div>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {testimonials.length > 0 ? testimonials.map((testimonial) => (
+                    <div key={testimonial.id} className="bg-gray-50 p-3 rounded-lg">
+                      <div className="flex items-center mb-2">
+                        <div className="w-10 h-10 rounded-full bg-gray-300 mr-3 overflow-hidden">
+                          <img
+                            src={testimonial.user?.profileImage || "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"}
+                            alt={testimonial.user?.fullName}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <h3 className="text-sm font-semibold">{testimonial.user?.fullName || "Jane Doe"}</h3>
+                          <div className="flex">
+                            {[...Array(5)].map((_, i) => (
+                              <Star
+                                key={i}
+                                className={`h-3 w-3 ${
+                                  i < (testimonial.rating || 5) ? "text-yellow-500 fill-yellow-500" : "text-gray-300"
+                                }`}
+                              />
+                            ))}
+                            <span className="text-xs text-gray-500 ml-1">{testimonial.createdAt ? formatDate(new Date(testimonial.createdAt)) : "2 months ago"}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-600">{testimonial.comment || "This tool was perfect for my garden project. Easy to use and in great condition!"}</p>
+                    </div>
+                  )) : (
+                    <div className="bg-gray-50 p-3 rounded-lg">
+                      <div className="flex items-center mb-2">
+                        <div className="w-10 h-10 rounded-full bg-gray-300 mr-3 overflow-hidden">
+                          <img
+                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                            alt="Jane Doe"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <h3 className="text-sm font-semibold">Jane Doe</h3>
+                          <div className="flex">
+                            {[...Array(5)].map((_, i) => (
+                              <Star
+                                key={i}
+                                className={`h-3 w-3 ${
+                                  i < 5 ? "text-yellow-500 fill-yellow-500" : "text-gray-300"
+                                }`}
+                              />
+                            ))}
+                            <span className="text-xs text-gray-500 ml-1">2 months ago</span>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-600">This tool was perfect for my garden project. Easy to use and in great condition!</p>
+                    </div>
+                  )}
+                  <div className="bg-gray-50 p-3 rounded-lg">
+                    <div className="flex items-center mb-2">
+                      <div className="w-10 h-10 rounded-full bg-gray-300 mr-3 overflow-hidden">
+                        <img
+                          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                          alt="John Smith"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-semibold">John Smith</h3>
+                        <div className="flex">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`h-3 w-3 ${
+                                i < 4 ? "text-yellow-500 fill-yellow-500" : "text-gray-300"
+                              }`}
+                            />
+                          ))}
+                          <span className="text-xs text-gray-500 ml-1">3 weeks ago</span>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600">Great quality, would rent again. The item was delivered in perfect condition.</p>
+                  </div>
+                </div>
+              )}
+            </TabsContent>
+          </Tabs>
+
+          {/* Rent Button */}
+          <div className="sticky bottom-0 left-0 right-0 pt-2 pb-2 bg-white flex justify-between gap-3 items-center">
+            <Button 
+              variant="outline" 
+              className="flex-1"
+              onClick={handleSaveToggle}
+            >
+              {isSaved ? 'Saved' : 'Save'}
             </Button>
-          )}
+            <Button 
+              className="flex-[2]" 
+              onClick={handleRentNow}
+            >
+              Rent Now
+            </Button>
+          </div>
         </div>
       </div>
       
+      <BottomNavigation />
       <HomeIndicator />
     </div>
   );
